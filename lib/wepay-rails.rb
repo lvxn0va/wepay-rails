@@ -88,7 +88,7 @@ module WepayRails
       def auth_code_url(redirect_uri, params = {})
         params[:client_id]    ||= @wepay_config[:client_id]
         params[:scope]        ||= @wepay_config[:scope].join(',')
-        params[:redirect_uri]   = redirect_uri
+        params[:redirect_uri] ||= @wepay_config[:auth_redirect_uri]
         query = params.map { |k, v| "#{k.to_s}=#{v}" }.join('&')
 
         "#{@ui_endpoint}/oauth2/authorize?#{query}"
