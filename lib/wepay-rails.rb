@@ -87,8 +87,8 @@ module WepayRails
       # ex. ['manage_accounts','collect_payments','view_balance','view_user']
       def auth_code_url(redirect_uri, params = {})
         params[:client_id]    ||= @wepay_config[:client_id]
-        params[:scope]        ||= @wepay_config[:scope].join(',')
         params[:redirect_uri] ||= @wepay_config[:auth_redirect_uri]
+        params[:scope]        ||= @wepay_config[:scope].join(',')
         query = params.map { |k, v| "#{k.to_s}=#{v}" }.join('&')
 
         "#{@ui_endpoint}/oauth2/authorize?#{query}"
@@ -134,7 +134,7 @@ module WepayRails
           raise e if e.class.to_s =~ /WepayRails/
           raise WepayRails::Exceptions::WepayApiError.new("There was an error while trying to connect with WePay - #{e.inspect}")
         end
-        if response.success?
+        if response.code == 200
           return json
         elsif response.code == 401
           raise WepayRails::Exceptions::ExpiredTokenError.new("Token either expired, revoked or invalid: #{json.inspect}.")
