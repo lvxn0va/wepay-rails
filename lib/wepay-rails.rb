@@ -148,7 +148,7 @@ module WepayRails
         params = {
           :client_id     => @wepay_config[:client_id],
           :client_secret => @wepay_config[:client_secret],
-          :redirect_uri  => redirect_uri,
+          :redirect_uri  => @wepay_config[:auth_redirect_uri],
           :code          => auth_code
         }
         json = call_api("/oauth2/token", params)
