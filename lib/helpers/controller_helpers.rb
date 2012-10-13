@@ -96,7 +96,7 @@ module WepayRails
         end
 
         params.merge!({
-            :access_token   => wepay_gateway.access_token,
+            #:access_token   => wepay_gateway.access_token,
             :preapproval_id    => response[:preapproval_id],
             :security_token => response[:security_token],
             :preapproval_uri   => response[:preapproval_uri]
@@ -117,7 +117,7 @@ module WepayRails
         response      = wepay_gateway.perform_charge(params)
 
         params.merge!({
-            #:access_token   => wepay_gateway.access_token,
+            :access_token   => wepay_gateway.access_token,
             :preapproval_id => response[:preapproval_id],
             :checkout_id    => response[:checkout_id],
             :security_token => response[:security_token],
