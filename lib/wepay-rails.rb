@@ -76,8 +76,8 @@ module WepayRails
       # rails config directory - it must look like this:
       def initialize(*args)
         @wepay_config = WepayRails::Configuration.settings || {:scope => []}
-        #@access_token = args.first || @wepay_config[:access_token]
-        #@account_id   = args.first || @wepay_config[:account_id]
+        @access_token = args.first || @wepay_config[:access_token]
+        @account_id   = args.first || @wepay_config[:account_id]
         @ui_endpoint  = @wepay_config[:wepay_ui_endpoint] || "https://www.wepay.com/v2"
         @api_endpoint = @wepay_config[:wepay_api_endpoint] || "https://wepayapi.com/v2"
       end

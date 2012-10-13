@@ -87,7 +87,7 @@ module WepayRails
       #funding_sources				No		String			What funding sources you want to accept for this checkout. Options are: "bank,cc" to accept both bank and cc payments, "cc" to accept just credit card payments, and "bank" to accept just 										bank payments.
       
       
-      def init_preapproval(params, access_token=nil)
+      def init_preapproval(params, access_token)
         wepay_gateway = WepayRails::Payments::Gateway.new(access_token)
         response      = wepay_gateway.perform_preapproval(params)
 
@@ -96,7 +96,7 @@ module WepayRails
         end
 
         params.merge!({
-            #:access_token   => wepay_gateway.access_token,
+            :access_token   => wepay_gateway.access_token,
             :preapproval_id    => response[:preapproval_id],
             :security_token => response[:security_token],
             :preapproval_uri   => response[:preapproval_uri]
