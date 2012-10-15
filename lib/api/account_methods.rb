@@ -9,7 +9,7 @@ module WepayRails
         self.call_api("/account", {:account_id => account_id})
       end
 
-      def find_account(params={}, access_token)
+      def find_account(params={})
         self.call_api("/account/find", params)
       end
 
