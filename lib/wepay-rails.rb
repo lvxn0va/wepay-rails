@@ -158,6 +158,10 @@ module WepayRails
         @account_id   = json[:user_id]
         @access_token = json[:access_token]
       end
+      
+      def wepay_auth_url
+        wepay_auth_url
+      end
 
       include WepayRails::Api::AccountMethods
       include WepayRails::Api::CheckoutMethods
