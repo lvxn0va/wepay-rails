@@ -87,7 +87,8 @@ module WepayRails
       # ex. ['manage_accounts','collect_payments','view_balance','view_user']
       def auth_code_url(redirect_uri, params = {})
         params[:client_id]    ||= @wepay_config[:client_id]
-        params[:redirect_uri] ||= @wepay_config[:auth_redirect_uri]
+        params[:redirect_uri] ||= wepay_auth_url
+        #params[:redirect_uri] ||= @wepay_config[:auth_redirect_uri]
         params[:scope]        ||= @wepay_config[:scope].join(',')
         query = params.map { |k, v| "#{k.to_s}=#{v}" }.join('&')
 
@@ -148,7 +149,8 @@ module WepayRails
         params = {
           :client_id     => @wepay_config[:client_id],
           :client_secret => @wepay_config[:client_secret],
-          :redirect_uri  => @wepay_config[:auth_redirect_uri],
+          :redirect_uri  => wepay_auth_url,
+          #:redirect_uri  => @wepay_config[:auth_redirect_uri],
           :code          => auth_code
         }
         json = call_api("/oauth2/token", params)
