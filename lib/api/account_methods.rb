@@ -1,7 +1,7 @@
 module WepayRails
   module Api
     module AccountMethods
-      def create_account(params)
+      def create_account(params, access_token)
         self.call_api("/account/create", params)
       end
 
@@ -9,7 +9,7 @@ module WepayRails
         self.call_api("/account", {:account_id => account_id})
       end
 
-      def find_account(params={})
+      def find_account(params={}, access_token)
         self.call_api("/account/find", params)
       end
 
