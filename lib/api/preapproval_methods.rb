@@ -84,7 +84,7 @@ module WepayRails
         uri = if @wepay_config[:ipn_callback_uri].present?
                 @wepay_config[:preapproval_redirect_uri]
               else
-                "#{@wepay_config[:root_callback_uri]}/preapproval/success" #redirect to success action with text - ALT: "#{@wepay_config[:root_callback_uri]}/wepay/preapproval"
+                "#{@wepay_config[:root_callback_uri]}wepay/preapproval/success" #redirect to success action with text - ALT: "#{@wepay_config[:root_callback_uri]}/wepay/preapproval"
               end
         #apply_security_token(uri, security_token) /// SECURITY TOKEN REMOVED FROM URL
       end
