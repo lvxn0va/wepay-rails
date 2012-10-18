@@ -112,7 +112,7 @@ module WepayRails
         redirect_to record.preapproval_uri and return record
       end
       
-      def init_charge(params, access_token=nil)
+      def init_charge(params, access_token=nil, wepay_record)
         wepay_gateway = WepayRails::Payments::Gateway.new(access_token)
         response      = wepay_gateway.perform_charge(params)
 
@@ -125,12 +125,14 @@ module WepayRails
         
         params.delete_if {|k,v| !WepayCheckoutRecord.attribute_names.include? k.to_s}
 
-        wepay_record = WepayCheckoutRecord.find_by_preapproval_id(params[:preapproval_id])
-        wepay_record.update_attributes(params)
+        wepay_checkout_record = response.checkout_id
+        if wepay_checkout_record.present?
+            wepay_checkout_record.update_attributes(params)
+        end
       end
 
-      def init_charge_and_return_success(params, access_token=nil)
-        record = init_charge(params, access_token)
+      def init_charge_and_return_success(params, access_token=nil, wepay_record)
+        record = init_charge(params, access_token, wepay_record)
         redirect_to wepay_project_charge_success_url and return record
       end
     
