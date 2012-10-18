@@ -51,7 +51,7 @@ module WepayRails
         
         defaults = {
             :callback_uri     => ipn_callback_uri(security_token),
-            :redirect_uri     => checkout_redirect_uri(security_token),
+            :redirect_uri     => charge_redirect_uri(security_token),
             :fee_payer        => @wepay_config[:fee_payer],
             :type             => @wepay_config[:checkout_type],
             :charge_tax       => @wepay_config[:charge_tax] ? 1 : 0,
@@ -91,7 +91,7 @@ module WepayRails
         uri = if @wepay_config[:ipn_callback_uri].present?
                 @wepay_config[:charge_redirect_uri]
               else
-                "#{@wepay_config[:root_callback_uri]}/wepay/charge"
+                "#{@wepay_config[:root_callback_uri]}/wepay/charge/success"
               end
         apply_security_token(uri, security_token)
       end
@@ -100,7 +100,7 @@ module WepayRails
         uri = if @wepay_config[:ipn_callback_uri].present?
                 @wepay_config[:checkout_redirect_uri]
               else
-                "#{@wepay_config[:root_callback_uri]}/wepay/checkout"
+                "#{@wepay_config[:root_callback_uri]}/wepay/checkout/success"
               end
         apply_security_token(uri, security_token)
       end
