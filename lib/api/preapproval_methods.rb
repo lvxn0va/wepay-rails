@@ -66,7 +66,7 @@ module WepayRails
       
       def lookup_preapproval(preapproval_id)
         co = self.call_api("/preapproval", {:preapproval_id => preapproval_id})
-        co.delete("type")
+        co.delete("type", "start_time")
         co
       end
 
