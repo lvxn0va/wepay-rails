@@ -125,7 +125,7 @@ module WepayRails
         
         params.delete_if {|k,v| !WepayCheckoutRecord.attribute_names.include? k.to_s}
 
-        wepay_checkout_record = response.checkout_id
+        wepay_checkout_record = response[:checkout_id]
         if wepay_checkout_record.present?
             wepay_checkout_record.update_attributes(params)
         end
