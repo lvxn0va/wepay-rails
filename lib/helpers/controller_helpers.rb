@@ -130,7 +130,7 @@ module WepayRails
 
       def init_charge_and_return_success(params, access_token=nil)
         record = init_charge(params, access_token)
-        redirect_to charge_success_url and return record
+        redirect_to record.checkout_uri and return record
       end
     
 
