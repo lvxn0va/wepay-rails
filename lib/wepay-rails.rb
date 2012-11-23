@@ -123,9 +123,8 @@ module WepayRails
         json
       end
 
-      def call_api(api_path, params={}, timeout=30)
+      def call_api(api_path, params={})
         begin
-          self.class.default_timeout(timeout)
           response = self.class.post("#{@api_endpoint}#{api_path}", {:headers => wepay_auth_header, :body => params})
           json = symbolize_response(response.body)
         rescue Errno, JSON::ParserError => e
