@@ -123,7 +123,7 @@ module WepayRails
         json
       end
 
-      def call_api(api_path, params={}, timeout=30000)
+      def call_api(api_path, params={}, timeout=30)
         begin
           self.class.default_timeout(timeout)
           response = self.class.post("#{@api_endpoint}#{api_path}", {:headers => wepay_auth_header, :body => params})
