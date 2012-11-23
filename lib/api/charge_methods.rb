@@ -41,17 +41,17 @@ module WepayRails
         security_token = Digest::SHA2.hexdigest("#{Rails.env.production? ? rand(4) : 1}#{Time.now.to_i}") # Make less random during tests
         
         # add the security token to any urls that were passed in from the app
-        #if params[:callback_uri]
-          #params[:callback_uri] = apply_security_token( params[:callback_uri], security_token )
-        #end
+        if params[:callback_uri]
+          params[:callback_uri] = apply_security_token( params[:callback_uri], security_token )
+        end
         
-        #if params[:redirect_uri]
-          #params[:redirect_uri] = apply_security_token( params[:redirect_uri], security_token )
-        #end
+        if params[:redirect_uri]
+          params[:redirect_uri] = apply_security_token( params[:redirect_uri], security_token )
+        end
         
         defaults = {
-            #:callback_uri     => ipn_callback_uri(security_token),
-            #:redirect_uri     => charge_redirect_uri(security_token),
+            :callback_uri     => ipn_callback_uri(security_token),
+            :redirect_uri     => charge_redirect_uri(security_token),
             :fee_payer        => @wepay_config[:fee_payer],
             :type             => @wepay_config[:checkout_type],
             :charge_tax       => @wepay_config[:charge_tax] ? 1 : 0,
